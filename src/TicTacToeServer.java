@@ -3,6 +3,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 
@@ -51,7 +52,7 @@ class Game {
     }
 
     public boolean boardFilledUp() {
-        return Arrays.stream(board).allMatch(p -> p != null);
+        return Arrays.stream(board).allMatch(Objects::nonNull);
     }
 
     public synchronized void move(int location, Player player) {
@@ -73,7 +74,7 @@ class Game {
      */
     class Player implements Runnable {
         char mark;
-        Player opponent;
+        protected Player opponent;
         Socket socket;
         Scanner input;
         PrintWriter output;
