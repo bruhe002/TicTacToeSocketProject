@@ -23,9 +23,11 @@ public class TicTacToeServer {
     public static void main(String[] args) throws Exception {
         try (var listener = new ServerSocket(58901)) {
             System.out.println("Tic Tac Toe Server is Running...");
+            // Returns ExecutorService object that can Take 200 multi-threads but 2 can only be active, the rest are queued
             var pool = Executors.newFixedThreadPool(200);
             while (true) {
                 Game game = new Game();
+                // Execute method: Function executes the given command at some time in the future
                 pool.execute(game.new Player(listener.accept(), 'X'));
                 pool.execute(game.new Player(listener.accept(), 'O'));
             }
